@@ -1,4 +1,4 @@
-# Simple Notes - Minimalist Notes App
+# NoteStorage - Minimalist Notes App
 
 A modern and ultra-simple notes app built with Next.js, React, and JavaScript. All notes are stored locally in your browser, with no backend, no database, and no authentication.
 
