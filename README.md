@@ -1,127 +1,97 @@
-# Simple Notes - Aplicación de Notas Sencilla
+# Simple Notes - Minimalist Notes App
 
-Una aplicación de notas minimalista y moderna construida con Next.js, React y JavaScript. Almacena todas las notas localmente en el navegador sin necesidad de backend, base de datos o autenticación.
+A modern and ultra-simple notes app built with Next.js, React, and JavaScript. All notes are stored locally in your browser, with no backend, no database, and no authentication.
 
-## ✨ Características
+## ✨ Main Features
 
-- 📝 **Crear y editar notas** con límite de caracteres razonable
-- 🗑️ **Eliminar notas** con confirmación
-- 🔍 **Buscar notas** por título o contenido
-- 📊 **Información detallada** de cada nota (fecha, palabras, caracteres)
-- 💾 **Descargar notas** en formato .txt
-- 📱 **Diseño responsive** para móviles y escritorio
-- 🎨 **Interfaz moderna y minimalista**
-- 📅 **Fecha actual** en tiempo real
-- 🔗 **Enlace al repositorio** de GitHub
-- 🚀 **Desplegable en Vercel** sin configuración adicional
+- 📝 **Create and edit notes**
+- 🔒 **5000 characters limit per note**
+- 🗑️ **Delete notes**
+- ℹ️ **View note information**
+- 💾 **Download notes**
+- 📅 **Current date**
+- 📚 **Always-visible sidebar**
+- 🎨 **Modern, minimalist, and responsive interface**
+- 🚀 **Instant deployment on Vercel**
 
-## 🚀 Instalación
+## 🚀 Installation
 
-1. **Clona el repositorio:**
+1. **Clone the repository:**
 ```bash
-git clone https://github.com/tu-usuario/simple-notes.git
-cd simple-notes
+git clone https://github.com/franciscovln/cursor-note-app.git
+cd cursor-note-app
 ```
-
-2. **Instala las dependencias:**
+2. **Install dependencies:**
 ```bash
 npm install
 ```
-
-3. **Ejecuta en modo desarrollo:**
+3. **Run in development mode:**
 ```bash
 npm run dev
 ```
+4. **Open [http://localhost:3000](http://localhost:3000) in your browser**
 
-4. **Abre [http://localhost:3000](http://localhost:3000) en tu navegador**
+## 🛠️ Technologies Used
+- **Next.js**
+- **React**
+- **JavaScript**
 
-## 📦 Scripts Disponibles
+## 📱 Features
 
-- `npm run dev` - Ejecuta el servidor de desarrollo
-- `npm run build` - Construye la aplicación para producción
-- `npm run start` - Ejecuta la aplicación en modo producción
-- `npm run lint` - Ejecuta el linter
+### Notes Management
+- Create new notes (up to 10)
+- Edit title and content in real time
+- Delete notes with custom confirmation
+- 5000 characters limit per note
+- 2 seconds cooldown to prevent spam
 
-## 🛠️ Tecnologías Utilizadas
+### User Interface
+- Always-visible sidebar with notes list
+- Preview of each note's content
+- Responsive design for all devices
+- Motivational messages and friendly UI when there are no notes
 
-- **Next.js 14** - Framework de React
-- **React 18** - Biblioteca de interfaz de usuario
-- **JavaScript** - Lenguaje de programación
-- **CSS3** - Estilos modernos con variables CSS
-- **LocalStorage** - Almacenamiento local de datos
+### Note Information
+- Creation and last modification date
+- Word and character counter
+- Unique note ID
 
-## 📱 Funcionalidades
+### Export
+- Download notes as .txt files
+- File name based on the note title
 
-### Gestión de Notas
-- Crear nuevas notas con un clic
-- Editar título y contenido en tiempo real
-- Eliminar notas con confirmación
-- Límite de 10,000 caracteres por nota
+## 🔒 Security
+- **No backend:** No server or database
+- **Local storage:** Your notes exist only in your browser
+- **No authentication:** No credentials required
+- **No XSS:** Notes content is plain text, no code is executed
+- **Character and note limits:** Prevents saturation and excessive resource usage
 
-### Interfaz de Usuario
-- Sidebar con lista de notas (mostrar/ocultar)
-- Búsqueda en tiempo real
-- Vista previa del contenido de las notas
-- Diseño responsive para todos los dispositivos
-
-### Información de Notas
-- Fecha de creación y última modificación
-- Contador de palabras y caracteres
-- Número de líneas
-- ID único de la nota
-
-### Exportación
-- Descargar notas en formato .txt
-- Nombre de archivo basado en el título de la nota
-
-## 🔒 Seguridad
-
-- **Sin backend**: No hay servidor que procese datos
-- **Almacenamiento local**: Los datos se guardan solo en tu navegador
-- **Sin autenticación**: No se requieren credenciales
-- **Sin XSS**: El contenido se escapa correctamente
-- **Límites de caracteres**: Previene ataques de DoS
-
-## 🚀 Despliegue en Vercel
-
-1. **Conecta tu repositorio a Vercel:**
-   - Ve a [vercel.com](https://vercel.com)
-   - Importa tu repositorio de GitHub
-   - Vercel detectará automáticamente que es un proyecto Next.js
-
-2. **Configuración automática:**
-   - Framework Preset: Next.js
-   - Build Command: `npm run build`
-   - Output Directory: `.next`
-   - Install Command: `npm install`
-
-3. **Variables de entorno:**
-   - No se requieren variables de entorno
-
-## 📁 Estructura del Proyecto
-
+## 📁 Project Structure
 ```
 simple-notes/
 ├── app/
-│   ├── globals.css          # Estilos globales
-│   ├── layout.js            # Layout principal
-│   └── page.js              # Página principal
+│   ├── globals.css          # Global styles
+│   ├── layout.js            # Main layout
+│   └── page.js              # Main page
 ├── components/
-│   ├── NotesApp.js          # Componente principal
-│   ├── Header.js            # Header con fecha y GitHub
-│   ├── Sidebar.js           # Sidebar con lista de notas
-│   ├── NoteEditor.js        # Editor de notas
-│   └── InfoModal.js         # Modal de información
+│   ├── NotesApp.js          # Main component
+│   ├── Header.js            # Header with date and GitHub
+│   ├── Sidebar.js           # Sidebar with notes list
+│   ├── NoteEditor.js        # Note editor
+│   ├── InfoModal.js         # Info modal
+│   ├── ConfirmModal.js      # Confirmation modal
+│   └── Toast.js             # Notifications
 ├── package.json
 ├── next.config.js
+├── vercel.json
 └── README.md
 ```
 
-## 🎨 Personalización
+## 🎨 Customization
 
-### Colores
-Los colores se pueden personalizar editando las variables CSS en `app/globals.css`:
-
+### Colors
+Edit the CSS variables in `app/globals.css`:
 ```css
 :root {
   --primary-color: #3b82f6;
@@ -133,32 +103,12 @@ Los colores se pueden personalizar editando las variables CSS en `app/globals.cs
 }
 ```
 
-### Límite de Caracteres
-Puedes cambiar el límite de caracteres editando la constante en `components/NoteEditor.js`:
-
-```javascript
-const MAX_CHARACTERS = 10000; // Cambia este valor
-```
-
-## 🤝 Contribuir
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
-## 🙏 Agradecimientos
-
-- [Next.js](https://nextjs.org/) por el framework
-- [React](https://reactjs.org/) por la biblioteca de UI
-- [Vercel](https://vercel.com/) por el hosting gratuito
-- [Feather Icons](https://feathericons.com/) por los iconos SVG
+## 🙏 Acknowledgements
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [Vercel](https://vercel.com/)
+- [Tabler Icons](https://tabler-icons.io/)
 
 ---
 
-**¡Disfruta escribiendo tus notas! 📝✨** 
+**Enjoy writing your notes! 📝✨** 
