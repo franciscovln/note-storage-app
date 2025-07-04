@@ -88,17 +88,18 @@ export default function InfoModal({ note, onClose }) {
       onKeyDown={handleKeyDown}
       tabIndex={-1}
     >
-      <div className="modal-content">
+      <div className="modal-content modal-content--info">
         {/* Header del modal con título y botón de cerrar */}
-        <div className="modal-header">
-          <h2>Note Information</h2>
+        <div className="modal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '0.8rem 0.8rem 0 0.8rem' }}>
+          <h2 style={{ margin: 0, padding: 0 }}>Note Information</h2>
           <button 
             className="close-btn"
             onClick={onClose}
             aria-label="Close modal"
+            style={{ width: 32, height: 32, fontSize: '1.1rem', margin: 0, padding: 0 }}
           >
             {/* Icono X para cerrar */}
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>

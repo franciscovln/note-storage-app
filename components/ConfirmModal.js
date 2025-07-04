@@ -4,7 +4,7 @@
 export default function ConfirmModal({ message, onConfirm, onCancel }) {
   return (
     <div className="modal-backdrop" tabIndex={-1}>
-      <div className="modal-content" style={{ maxWidth: 360 }}>
+      <div className="modal-content">
         <div className="modal-header">
           <h2>Confirmation</h2>
         </div>

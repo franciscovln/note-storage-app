@@ -1,8 +1,8 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'Simple Notes - Notas Sencillas',
-  description: 'Aplicación de notas simple y minimalista',
+  title: 'ThinkBin - Guarda tus notas localmente',
+  description: 'ThinkBin - Guarda tus notas localmente',
 }
 
 export default function RootLayout({ children }) {

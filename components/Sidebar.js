@@ -1,7 +1,5 @@
 'use client'
 
-import { useState } from 'react'
-
 /**
  * Componente Sidebar que muestra la lista de notas
  * Incluye funcionalidad de creación y gestión de notas

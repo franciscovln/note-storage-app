@@ -34,21 +34,24 @@ export default function NotesApp() {
   // Estado para el modal de confirmación
   const [confirm, setConfirm] = useState(null)
 
-  /**
-   * Efecto que se ejecuta al cargar la aplicación
-   * Carga las notas guardadas en localStorage
-   */
+  // Estado para la visibilidad de la sidebar
+  const [sidebarVisible, setSidebarVisible] = useState(true)
+  // Detectar si es móvil
+  const [isMobile, setIsMobile] = useState(false)
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
-    const savedNotes = localStorage.getItem('simple-notes')
-    if (savedNotes) {
-      const parsedNotes = JSON.parse(savedNotes)
-      setNotes(parsedNotes)
-      // Si hay notas guardadas y no hay ninguna seleccionada, selecciona la primera
-      if (parsedNotes.length > 0 && !selectedNoteId) {
-        setSelectedNoteId(parsedNotes[0].id)
-      }
-    }
+    const checkMobile = () => setIsMobile(window.innerWidth <= 700)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
+
+  // Selección inicial de nota (si no hay ninguna seleccionada y hay notas)
+  useEffect(() => {
+    if (notes.length > 0 && !selectedNoteId) {
+      setSelectedNoteId(notes[0].id)
+    }
+  }, [notes, selectedNoteId])
 
   /**
    * Efecto que se ejecuta cada vez que cambian las notas
@@ -59,6 +62,42 @@ export default function NotesApp() {
       localStorage.setItem('simple-notes', JSON.stringify(notes))
     }
   }, [notes])
+
+  // Sincronización en tiempo real entre pestañas usando el evento 'storage'
+  useEffect(() => {
+    const handleStorageChange = (event) => {
+      if (event.key === 'simple-notes') {
+        const updatedNotes = JSON.parse(event.newValue || '[]');
+        setNotes(updatedNotes);
+        // Si la nota seleccionada ya no existe, selecciona la primera disponible
+        if (updatedNotes.length > 0 && !updatedNotes.find(n => n.id === selectedNoteId)) {
+          setSelectedNoteId(updatedNotes[0].id);
+        }
+        // Si no hay notas, limpia la selección
+        if (updatedNotes.length === 0) {
+          setSelectedNoteId(null);
+        }
+      }
+    };
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, [selectedNoteId]);
+
+  /**
+   * Efecto que se ejecuta solo en el cliente para cargar las notas desde localStorage
+   */
+  useEffect(() => {
+    // Solo se ejecuta en el cliente
+    const savedNotes = typeof window !== 'undefined' ? localStorage.getItem('simple-notes') : null
+    if (savedNotes) {
+      const parsedNotes = JSON.parse(savedNotes)
+      setNotes(parsedNotes)
+      if (parsedNotes.length > 0 && !selectedNoteId) {
+        setSelectedNoteId(parsedNotes[0].id)
+      }
+    }
+    setLoading(false)
+  }, [])
 
   /**
    * Muestra una notificación toast
@@ -163,22 +202,42 @@ export default function NotesApp() {
     })
   }
 
+  // Al seleccionar una nota en móvil, ocultar la sidebar
+  const handleNoteSelect = (id) => {
+    setSelectedNoteId(id)
+    if (isMobile) setSidebarVisible(false)
+  }
+
+  // Render condicional para evitar parpadeo de 'No notes yet'
+  if (loading) {
+    return null
+  }
+
   return (
     <div className="app">
-      {/* Header solo con la fecha */}
-      <Header />
+      {/* Header con botón para retraer/mostrar sidebar */}
+      <Header sidebarVisible={sidebarVisible} onToggleSidebar={() => setSidebarVisible(v => !v)} />
       
       <div className="main-container">
-        {/* Sidebar con lista de notas */}
+        {/* Sidebar tipo drawer en móvil */}
         <Sidebar
           notes={notes}
           selectedNoteId={selectedNoteId}
-          onNoteSelect={setSelectedNoteId}
+          onNoteSelect={handleNoteSelect}
           onNoteDelete={requestDeleteNote}
           onNoteInfo={showNoteInfo}
           onCreateNote={createNote}
-          visible={true}
+          visible={sidebarVisible}
         />
+        {/* Botón flotante para mostrar sidebar solo en móvil */}
+        {isMobile && !sidebarVisible && (
+          <button className="show-sidebar-btn" onClick={() => setSidebarVisible(true)} aria-label="Mostrar menú">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="2" />
+              <line x1="9" y1="4" x2="9" y2="20" />
+            </svg>
+          </button>
+        )}
         
         {/* Editor de notas */}
         <NoteEditor
@@ -186,7 +245,7 @@ export default function NotesApp() {
           onUpdateNote={updateNote}
           onDeleteNote={requestDeleteNote}
           onShowInfo={showNoteInfo}
-          sidebarVisible={true}
+          sidebarVisible={sidebarVisible}
           onRequestDownload={requestDownloadNote}
           onCreateFirstNote={createNote}
         />

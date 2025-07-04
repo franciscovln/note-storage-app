@@ -1,47 +1,26 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-
 /**
- * Componente Header que muestra la fecha actual y botón de GitHub
- * También incluye el botón para mostrar/ocultar el sidebar
+ * Componente Header que muestra el botón para retraer/mostrar la sidebar y el botón de GitHub
  */
-export default function Header() {
-  // Estado para la fecha actual
-  const [currentDate, setCurrentDate] = useState('')
-
-  /**
-   * Efecto que actualiza la fecha cada minuto
-   * Formatea la fecha en inglés con formato "June 25, 2025"
-   */
-  useEffect(() => {
-    const updateDate = () => {
-      const now = new Date()
-      const options = { 
-        month: 'long',      // Mes completo (ej: "June")
-        day: 'numeric',     // Día en números
-        year: 'numeric'     // Año en números
-      }
-      setCurrentDate(now.toLocaleDateString('en-US', options))
-    }
-    
-    // Actualiza la fecha inmediatamente
-    updateDate()
-    
-    // Configura un intervalo para actualizar cada minuto
-    const interval = setInterval(updateDate, 60000)
-    
-    // Limpia el intervalo cuando el componente se desmonta
-    return () => clearInterval(interval)
-  }, [])
-
+export default function Header({ sidebarVisible, onToggleSidebar }) {
   return (
     <header className="header">
-      {/* Solo la fecha en la esquina superior izquierda */}
-      <div className="header-left" style={{ gap: '0.5rem' }}>
-        <span className="current-date">{currentDate}</span>
+      {/* Botón para retraer/mostrar sidebar en la esquina superior izquierda */}
+      <div className="header-left" style={{ gap: '0.5rem', paddingLeft: 0 }}>
+        <button
+          className="sidebar-toggle sidebar-toggle-icon"
+          onClick={onToggleSidebar}
+          aria-label={sidebarVisible ? 'Ocultar menú' : 'Mostrar menú'}
+          style={{ marginLeft: '-0.5rem', padding: '0.25rem', width: 32, height: 32 }}
+        >
+          {/* Icono de barra lateral (sidebar), siempre igual */}
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="2" />
+            <line x1="9" y1="4" x2="9" y2="20" />
+          </svg>
+        </button>
       </div>
-      
       {/* Lado derecho del header */}
       <div className="header-right">
         {/* Enlace al repositorio de GitHub */}
