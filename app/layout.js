@@ -1,8 +1,8 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'ThinkBin - Guarda tus notas localmente',
-  description: 'ThinkBin - Guarda tus notas localmente',
+  title: 'ThinkBin - Save your notes locally',
+  description: 'ThinkBin - Save your notes locally',
 }
 
 export default function RootLayout({ children }) {
